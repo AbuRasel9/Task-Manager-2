@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/screens/pin_verification_screen.dart';
+import 'package:untitled1/screens/set_password_screen.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
@@ -46,18 +48,28 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
                   //textFeild decoration using reuseable widget
                   decoration: textFeildStyle("Email"),
+                  validator: (String? text) {
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                ReuseableElevatedButton(onTap: () {}),
+                ReuseableElevatedButton(onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PinVerificationScreen()));
+                }),
                 const SizedBox(
                   height: 35,
                 ),
                 //bottom text reuseable text
                 BottomText(
-                  //signin button ontap
-                    onTap: () {Navigator.pop(context);},
+                    //signin button ontap
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     //button text
                     buttonText: "Sign in",
                     //signin button previous text

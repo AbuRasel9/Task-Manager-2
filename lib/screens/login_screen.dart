@@ -72,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                         child: TextButton(
                             onPressed: () {
-                              //go to forget password screen use getx for routing
-                              Get.to(ForgetPasswordScreen());
+                              //go to forget password screen
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPasswordScreen()));
                             },
                             child: const Text(
                               "Forget Password ?",

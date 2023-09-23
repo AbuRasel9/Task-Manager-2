@@ -12,6 +12,9 @@ class ReuseableElevatedButton extends StatelessWidget {
       height: 40,
       width: double.infinity,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor:Colors.greenAccent.shade700,
+        ),
         onPressed: onTap,
         child: const Icon(
           Icons.arrow_circle_right_outlined,
