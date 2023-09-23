@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 class ReuseableElevatedButton extends StatelessWidget {
 
   const ReuseableElevatedButton({
-    super.key, required this.onTap,
+    super.key, required this.onTap, this.text,
   });
   final VoidCallback onTap;
+  final String?text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class ReuseableElevatedButton extends StatelessWidget {
           backgroundColor:Colors.greenAccent.shade700,
         ),
         onPressed: onTap,
-        child: const Icon(
+        child:text !=null?Text(text ??""): const Icon(
           Icons.arrow_circle_right_outlined,
           color: Colors.white,
         ),

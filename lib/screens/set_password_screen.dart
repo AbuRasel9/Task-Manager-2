@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/screens/login_screen.dart';
+import 'package:untitled1/screens/registration_screen.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
@@ -45,6 +46,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                       height: 10,
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: passwordController,
                       validator: (String? text) {
                         return null;
@@ -55,6 +57,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                       height: 12,
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: conformPasswordController,
                       validator: (String? text) {
                         return null;
@@ -66,18 +69,17 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                       height: 18,
                     ),
                     //reuse elevated button
-                    ReuseableElevatedButton(onTap: () {}),
+                    ReuseableElevatedButton(text:"Confirm",onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegistrationScreen()));
+                    }),
                     const SizedBox(
                       height: 30,
                     ),
                     //reuse bottom text
                     BottomText(
+
                         onTap: () {
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (
-                              context) => const LoginScreen()), (
-                              route) => false);
-                        },
+                                                  },
                         buttonText: "Sign in",
                         firstText: "Have Account?")
                   ],

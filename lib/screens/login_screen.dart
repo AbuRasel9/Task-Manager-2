@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
+import 'package:untitled1/screens/registration_screen.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
@@ -85,7 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     //bootom part use reuseable widget
                     BottomText(
-                      onTap: () {},
+                      onTap: () {Navigator.pushAndRemoveUntil(
+                          context, MaterialPageRoute(builder: (
+                          context) => const RegistrationScreen()), (
+                          route) => false);
+                      },
                       buttonText: "Signup",
                       firstText: 'Don’t have account?',
                     )

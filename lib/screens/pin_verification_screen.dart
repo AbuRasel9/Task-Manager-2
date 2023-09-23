@@ -80,7 +80,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
               height: 20,
             ),
 
-            ReuseableElevatedButton(onTap: () {
+            ReuseableElevatedButton(text: "Verify",onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
