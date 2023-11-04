@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
+import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/screens/registration_screen.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
@@ -66,7 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 18,
                     ),
-                    ReuseableElevatedButton(onTap: () {},),
+                    ReuseableElevatedButton(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                            builder: (context) => MainBottomNavBar()), (
+                            route) => false);
+                      },
+                    ),
                     const SizedBox(
                       height: 32,
                     ),
@@ -74,7 +81,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextButton(
                             onPressed: () {
                               //go to forget password screen
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const ForgetPasswordScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const ForgetPasswordScreen()));
                             },
                             child: const Text(
                               "Forget Password ?",
@@ -86,10 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     //bootom part use reuseable widget
                     BottomText(
-                      onTap: () {Navigator.pushAndRemoveUntil(
-                          context, MaterialPageRoute(builder: (
-                          context) => const RegistrationScreen()), (
-                          route) => false);
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const RegistrationScreen()),
+                                (route) => false);
                       },
                       buttonText: "Signup",
                       firstText: 'Don’t have account?',
@@ -104,4 +118,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

@@ -10,23 +10,10 @@ class BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    return Stack(
-
-
-      //stack use for background image er opor logo bosanor jonno
-      //stack use korle image er moddhe image/lekha newa jai
-      children: [
-      SvgPicture.asset(
-      "image/background.svg",
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-    ),
-        //background image reuseable widget
-
-        //logo image
-        child
-
-      ],
+    return SvgPicture.asset(
+    "image/background.svg",
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height,
     );
 
   }
