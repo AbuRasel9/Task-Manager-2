@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:untitled1/wdgets/background_image.dart';
@@ -40,7 +42,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       onTap: () async {
                         //image pick from galary use image_picker package
                         final imagePicker=ImagePicker();
-                        final result=await imagePicker.pickImage(source: ImageSource.camera);
+                        final result=await imagePicker.pickImage(source: ImageSource.gallery);
                         if(result !=null){
                           photoFile=result;
                         }
@@ -63,7 +65,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
                               ),
                             ),
-                            Text(photoFile?.name ?? ""),
+                            Image.file(File(photoFile?.path ?? ""),width: 20,height: 20,),
+                            Expanded(child: Text(photoFile?.name ?? "")),
                           ],
                         ),
                       ),

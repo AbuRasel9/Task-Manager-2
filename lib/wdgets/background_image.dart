@@ -10,11 +10,17 @@ class BackgroundImage extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    return SvgPicture.asset(
-    "image/background.svg",
-    width: MediaQuery.of(context).size.width,
-    height: MediaQuery.of(context).size.height,
+    return Stack(
+      children: [
+        SvgPicture.asset(
+        "image/background.svg",
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        ),
+        child
+      ],
     );
+
 
   }
 }
