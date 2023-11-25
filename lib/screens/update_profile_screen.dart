@@ -65,8 +65,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
                               ),
                             ),
-                            Image.file(File(photoFile?.path ?? ""),width: 20,height: 20,),
-                            Expanded(child: Text(photoFile?.name ?? "")),
+                            if(photoFile !=null)
+                              Image.file(File(photoFile?.path ?? ""),width: 20,height: 20,),
+                              Expanded(child: Text(photoFile?.name ?? "",maxLines: 3,)),
                           ],
                         ),
                       ),
