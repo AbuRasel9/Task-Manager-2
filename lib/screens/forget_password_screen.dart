@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:untitled1/screens/pin_verification_screen.dart';
-import 'package:untitled1/screens/set_password_screen.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';

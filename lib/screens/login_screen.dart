@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/screens/registration_screen.dart';

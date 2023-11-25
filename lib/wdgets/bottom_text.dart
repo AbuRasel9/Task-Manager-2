@@ -25,13 +25,16 @@ class BottomText extends StatelessWidget {
         //text
         Text(
           firstText,
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700),
         ),
         TextButton(
             onPressed: onTap,
             child: Text(
               buttonText,
               style: const TextStyle(
+                fontSize: 18,
                   color: Color.fromRGBO(33, 191, 115, 100),
                   fontWeight: FontWeight.w700),
             ))
