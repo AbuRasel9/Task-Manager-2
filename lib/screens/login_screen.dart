@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/screens/registration_screen.dart';
@@ -16,6 +18,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _form = GlobalKey<FormState>();
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -29,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: const EdgeInsets.all(30.0),
             child: SafeArea(
               child: Form(
+                key: _form,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,6 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       //text form feild style use reuseable widget
                       decoration: textFeildStyle("Email:"),
                       validator: (String? text) {
+                        if (text?.isEmpty ?? true) {
+                          return "Enter Email";
+                        }
                         return null;
                       },
                     ),
@@ -54,10 +62,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextFormField(
                       obscureText: true,
-                      controller: emailController,
+                      controller: passwordController,
                       //text form feild style use reuseable widget
                       decoration: textFeildStyle("Password:"),
                       validator: (String? text) {
+                        if (text?.isEmpty ?? true) {
+                          return "Enter Password";
+                        }
                         return null;
                       },
                     ),
@@ -66,10 +77,32 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 18,
                     ),
                     ReuseableElevatedButton(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                            builder: (context) => MainBottomNavBar()), (
-                            route) => false);
+                      onTap: () async {
+                        if (_form.currentState!.validate()) {
+                          //api call for login
+                          final result = await networkRequester().postRequester(
+                              "https://task.teamrabbil.com/api/v1/registration",
+                              {
+                                "email": emailController.text,
+                                "password": passwordController.text
+                              });
+                          if (result["status"] == "success") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Login Successfull")));
+
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MainBottomNavBar()),
+                                (route) => false);
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("please Enter correct Email/Password ")));
+
+                          }
+
+
+                        }
                       },
                     ),
                     const SizedBox(
@@ -83,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                      const ForgetPasswordScreen()));
+                                          const ForgetPasswordScreen()));
                             },
                             child: const Text(
                               "Forget Password ?",
@@ -100,8 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                const RegistrationScreen()),
-                                (route) => false);
+                                    const RegistrationScreen()),
+                            (route) => false);
                       },
                       buttonText: "Signup",
                       firstText: 'Don’t have account?',
