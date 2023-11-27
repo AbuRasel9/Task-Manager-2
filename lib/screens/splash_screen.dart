@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/screens/login_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/wdgets/background_image.dart';
+import 'package:untitled1/wdgets/utils/user_data.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,6 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
     final shareprefs=await SharedPreferences.getInstance();
     final String? result=shareprefs.getString("token");
     if(result !=null) {
+      //data store user data token,email,firstName,lastName
+      userData.token=result;
+      userData.firstName=shareprefs.getString("firstName");
+      userData.lastName=shareprefs.getString("lastName");
+      userData.email=shareprefs.getString("email");
+
       //first shwo splash screen wait 3 second then go to login page
       Future.delayed(const Duration(seconds: 1)).then((value) {
         Navigator.pushAndRemoveUntil(

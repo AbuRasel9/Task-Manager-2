@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
@@ -9,6 +10,7 @@ import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
 import 'package:untitled1/wdgets/text_feild_style.dart';
 import 'package:untitled1/wdgets/text_style.dart';
+import 'package:untitled1/wdgets/utils/user_data.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -66,9 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       //text form feild style use reuseable widget
                       decoration: textFeildStyle("Password:"),
                       validator: (String? text) {
+
                         if (text?.isEmpty ?? true) {
                           return "Enter Password";
                         }
+
                         return null;
                       },
                     ),
@@ -93,6 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                             //for user login or not
                             final sharePrefs=await SharedPreferences.getInstance();
+                            //data store in user data email,first name,last name,token
+                            userData.token=result['token'];
+                            userData.email=result['data']['email'];
+                            userData.firstName=result['data']['firstName'];
+                            userData.lastName=result['data']['lastName'];
+
+
+                            //use SharedPreferences for set data in share preference
                             sharePrefs.setString("email", result['data']['email']);
                             sharePrefs.setString("firstName", result['data']['firstName']);
                             sharePrefs.setString("lastName", result['data']['lastName']);
