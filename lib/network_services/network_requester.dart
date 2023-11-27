@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:untitled1/main.dart';
+import 'package:untitled1/screens/login_screen.dart';
 
 class networkRequester {
   //get method
@@ -30,6 +34,13 @@ class networkRequester {
           body: jsonEncode(body));
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
+      } else if (response.statusCode == 401) {
+        final shareprefs = await SharedPreferences.getInstance();
+        shareprefs.clear();
+        Navigator.pushAndRemoveUntil(
+            MyApp.navigatorKey.currentState!.context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false);
       } else {
         print("request failled");
       }

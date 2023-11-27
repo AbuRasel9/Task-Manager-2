@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/screens/login_screen.dart';
+import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,14 +24,27 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  goToLoginScreen() {
-    //first shwo splash screen wait 3 second then go to login page
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (contex) => const LoginScreen()),
-          (route) => false);
-    });
+  goToLoginScreen() async {
+    final shareprefs=await SharedPreferences.getInstance();
+    final String? result=shareprefs.getString("token");
+    if(result !=null) {
+      //first shwo splash screen wait 3 second then go to login page
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (contex) => const MainBottomNavBar()),
+                (route) => false);
+      });
+    }
+    else {
+      //first shwo splash screen wait 3 second then go to login page
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (contex) => const LoginScreen()),
+                (route) => false);
+      });
+    }
   }
 
   @override

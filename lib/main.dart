@@ -7,11 +7,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  //create navigatorKey is globlae anywhre we can access
+  static GlobalKey<NavigatorState> navigatorKey=GlobalKey<NavigatorState>();
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return  GetMaterialApp(
+      //now anywhre we can use context
+      navigatorKey: MyApp.navigatorKey,
       home: SplashScreen(),
     );
   }

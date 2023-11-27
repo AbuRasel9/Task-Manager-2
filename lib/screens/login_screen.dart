@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
@@ -79,16 +79,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     ReuseableElevatedButton(
                       onTap: () async {
                         if (_form.currentState!.validate()) {
+
+
+
                           //api call for login
                           final result = await networkRequester().postRequester(
-                              "https://task.teamrabbil.com/api/v1/registration",
+                              "https://task.teamrabbil.com/api/v1/login",
                               {
                                 "email": emailController.text,
                                 "password": passwordController.text
                               });
                           if (result["status"] == "success") {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Login Successfull")));
+
+                            //for user login or not
+                            final sharePrefs=await SharedPreferences.getInstance();
+                            sharePrefs.setString("email", result['data']['email']);
+                            sharePrefs.setString("firstName", result['data']['firstName']);
+                            sharePrefs.setString("lastName", result['data']['lastName']);
+                            sharePrefs.setString("token", result['token']);
 
                             Navigator.pushAndRemoveUntil(
                                 context,
