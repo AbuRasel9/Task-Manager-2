@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/screens/forget_password_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/screens/registration_screen.dart';
+import 'package:untitled1/utils/user_data.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/bottom_text.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
 import 'package:untitled1/wdgets/text_feild_style.dart';
 import 'package:untitled1/wdgets/text_style.dart';
-import 'package:untitled1/wdgets/utils/user_data.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

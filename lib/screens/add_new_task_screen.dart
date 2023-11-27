@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/wdgets/background_image.dart';
 import 'package:untitled1/wdgets/reuse_able_appbar.dart';
 import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
@@ -13,9 +14,11 @@ class AddNewTaskScreen extends StatefulWidget {
 }
 
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
-  final subjectController=TextEditingController();
-  final descriptionController=TextEditingController();
-  final _form=GlobalKey<FormState>();
+  bool inProgress=false;
+  final subjectController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final _form = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,30 +31,69 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             key: _form,
             child: Column(
               children: [
-                Text("Add New Task",style: titleTextStyle,),
-                SizedBox(height: 16,),
+                Text(
+                  "Add New Task",
+                  style: titleTextStyle,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
                 TextFormField(
-                  decoration:textFeildStyle("Subject"),
+                  decoration: textFeildStyle("Subject"),
                   controller: subjectController,
-                  validator: (String?value){
-                    if(value?.isEmpty ??true){
+                  validator: (String? value) {
+                    if (value?.trim().isEmpty ?? true) {
                       return "Enter Subject ";
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 TextFormField(
+                  controller: descriptionController,
+                  maxLines: 5,
                   decoration: textFeildStyle("Description"),
-                  validator: (String?value){
-                    if(value?.isEmpty ??true){
-                      return ""
+                  validator: (String? value) {
+                    if (value?.trim().isEmpty ?? true) {
+                      return "Enter Description";
                     }
                     return null;
                   },
                 ),
-                const SizedBox(height: 15,),
-                ReuseableElevatedButton(onTap: (){},)
+                const SizedBox(
+                  height: 15,
+                ),
+                if(inProgress)
+                  const Center(child: CircularProgressIndicator(),)
+                else
+                  ReuseableElevatedButton(
+                  onTap: () async {
+                    if (_form.currentState!.validate()) {
+                      inProgress=true;
+                      setState(() {
+
+                      });
+                      final response =
+                          await networkRequester().postRequester("https://task.teamrabbil.com/api/v1/createTask", {
+                        "title": subjectController.text.trim(),
+                        "description": descriptionController.text.trim(),
+                        "status": "New"
+                      });
+                      inProgress=false;
+                      setState(() {
+
+                      });
+                      if (response['status'] == "success") {
+                        subjectController.clear();
+                        descriptionController.clear();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Add New Successfully")));
+                      }
+                    }
+                  },
+                )
               ],
             ),
           ),

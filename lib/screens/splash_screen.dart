@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled1/screens/login_screen.dart';
 import 'package:untitled1/screens/main_bottom_nav_bar.dart';
 import 'package:untitled1/wdgets/background_image.dart';
-import 'package:untitled1/wdgets/utils/user_data.dart';
+import 'package:untitled1/utils/user_data.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

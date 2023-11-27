@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled1/main.dart';
 import 'package:untitled1/screens/login_screen.dart';
 import 'package:untitled1/screens/update_profile_screen.dart';
-import 'package:untitled1/wdgets/utils/user_data.dart';
+import 'package:untitled1/utils/user_data.dart';
 
 AppBar ReuseAbleAppBar(context, {bool isTapppable = true}) {
   return AppBar(

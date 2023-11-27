@@ -22,6 +22,7 @@ class TaskWidget extends StatelessWidget {
         title: Text(title),
         subtitle: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 5,

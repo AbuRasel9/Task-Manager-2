@@ -3,6 +3,7 @@ Card buildSummeryCard(int count,String title) {
   return Card(
     elevation: 4,
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
 
         Text(count.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
