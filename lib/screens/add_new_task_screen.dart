@@ -13,6 +13,9 @@ class AddNewTaskScreen extends StatefulWidget {
 }
 
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
+  final subjectController=TextEditingController();
+  final descriptionController=TextEditingController();
+  final _form=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,26 +24,36 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
           child: Padding(
         padding: const EdgeInsets.all(32.0),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text("Add New Task",style: titleTextStyle,),
-              SizedBox(height: 16,),
-              TextFormField(
-                decoration:textFeildStyle("Subject"),
-                validator: (String?value){
-                  return;
-                },
-              ),
-              const SizedBox(height: 15,),
-              TextFormField(
-                decoration: textFeildStyle("Description"),
-                validator: (String?value){
-                  return;
-                },
-              ),
-              const SizedBox(height: 15,),
-              ReuseableElevatedButton(onTap: (){},)
-            ],
+          child: Form(
+            key: _form,
+            child: Column(
+              children: [
+                Text("Add New Task",style: titleTextStyle,),
+                SizedBox(height: 16,),
+                TextFormField(
+                  decoration:textFeildStyle("Subject"),
+                  controller: subjectController,
+                  validator: (String?value){
+                    if(value?.isEmpty ??true){
+                      return "Enter Subject ";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15,),
+                TextFormField(
+                  decoration: textFeildStyle("Description"),
+                  validator: (String?value){
+                    if(value?.isEmpty ??true){
+                      return ""
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15,),
+                ReuseableElevatedButton(onTap: (){},)
+              ],
+            ),
           ),
         ),
       )),
