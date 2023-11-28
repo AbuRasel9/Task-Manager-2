@@ -35,19 +35,26 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: _completedTaskModel?.data?.length,
+        itemCount: _completedTaskModel?.data?.length ??0,
 
         itemBuilder: (context,index){
         final task=_completedTaskModel!.data![index];
 
 
-      return   TaskWidget(
-        title: task.title ?? "Unknown",
-        description: task.description ?? "Unknown",
-        type: 'Completed',
-        onEditTap: () {},
-        onDeleteTap: () {},
-        date: task.createdDate ?? "Unknown",
+      return   Column(
+        children: [
+          if(_completedTaskModel ==null)
+            const Center(child: CircularProgressIndicator(),)
+          else
+            TaskWidget(
+              title: task.title ?? "Unknown",
+              description: task.description ?? "Unknown",
+              type: 'Completed',
+              onEditTap: () {},
+              onDeleteTap: () {},
+              date: task.createdDate ?? "Unknown",
+            ),
+        ],
       );
 
     });
