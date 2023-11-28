@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/models/completed_task_model.dart';
 import 'package:untitled1/models/new_task_model.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/utils/urls.dart';
@@ -14,6 +15,7 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
+  CompletedTaskModel? _completedTaskModel;
 
   NewTaskModel? _newTaskModel;
   //form api we get all new task
