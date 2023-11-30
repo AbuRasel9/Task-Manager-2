@@ -32,6 +32,18 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
     });
   }
 
+
+  //Item delete operation
+  Future deleteItem(id) async {
+    final response=await networkRequester().getRequester("https://task.teamrabbil.com/api/v1/deleteTask/$id");
+    if(response['status']=='success'){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete Item Successfull")));
+
+    }
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -51,7 +63,9 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
               description: task.description ?? "Unknown",
               type: 'Completed',
               onEditTap: () {},
-              onDeleteTap: () {},
+              onDeleteTap: () {
+                deleteItem(task.sId);
+              },
               date: task.createdDate ?? "Unknown",
             ),
         ],

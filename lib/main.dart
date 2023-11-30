@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:untitled1/screens/splash_screen.dart';
 
 void main() {
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
+    return  MaterialApp(
       //now anywhre we can use context
       navigatorKey: MyApp.navigatorKey,
       home: SplashScreen(),

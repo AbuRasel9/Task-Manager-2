@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:untitled1/models/inprogress_task_model.dart';
+import 'package:untitled1/network_services/network_requester.dart';
+import 'package:untitled1/utils/urls.dart';
 import 'package:untitled1/wdgets/task_widget.dart';
 
 class InprogressTaskScreen extends StatefulWidget {
@@ -9,20 +12,55 @@ class InprogressTaskScreen extends StatefulWidget {
 }
 
 class _InprogressTaskScreenState extends State<InprogressTaskScreen> {
+  ProgressTaskModel? _progressTaskModel;
+
+  Future inprogressgetFormApi() async {
+    final response = await networkRequester().getRequester(
+        "https://task.teamrabbil.com/api/v1/listTaskByStatus/Progress");
+    if (response['status'] == "success") {
+      _progressTaskModel = ProgressTaskModel.fromJson(response);
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      inprogressgetFormApi();
+    });
+  }
+
+
+  //Item delete operation
+  Future deleteItem(id) async {
+    final response=await networkRequester().getRequester("https://task.teamrabbil.com/api/v1/deleteTask/$id");
+    if(response['status']=='success'){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete Item Successfull")));
+
+    }
+
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context,index){
-      return   TaskWidget(
-        title: 'This is Title',
-        description: 'This is des',
-        type: 'Inprogress',
-        onEditTap: () {},
-        onDeleteTap: () {},
-        date: '1/02/22',
-      );
-
-    });
+        itemCount: _progressTaskModel?.data?.length ?? 0,
+        itemBuilder: (context, index) {
+          final tasks = _progressTaskModel!.data![index];
+          return TaskWidget(
+            title: tasks.title ?? "unknown",
+            description: tasks.description ?? "unknown",
+            type: 'Inprogress',
+            onEditTap: () {},
+            onDeleteTap: () {
+              deleteItem(tasks.sId);
+            },
+            date: tasks.createdDate ?? "unknown",
+          );
+        });
   }
 }

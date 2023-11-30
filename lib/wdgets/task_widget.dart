@@ -11,7 +11,8 @@ class TaskWidget extends StatelessWidget {
   });
 
   final String title, description, type, date;
-  final VoidCallback onEditTap, onDeleteTap;
+  final VoidCallback onEditTap;
+  final VoidCallback onDeleteTap;
 
   @override
   Widget build(BuildContext context) {
