@@ -33,7 +33,7 @@ dependencies:
 # for use svg picture
   flutter_svg: ^2.0.7
 # for use state management
-#  get: ^4.6.6
+  get: ^4.6.6
 #  use for image picker
   image_picker: ^1.0.4
 

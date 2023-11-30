@@ -6,7 +6,7 @@ import 'package:untitled1/utils/urls.dart';
 import 'package:untitled1/wdgets/summery_card.dart';
 import 'package:untitled1/wdgets/task_widget.dart';
 import 'package:untitled1/wdgets/text_style.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -37,16 +37,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     });
   }
 
-
   //Item delete operation
   Future deleteItem(id) async {
-    final response=await networkRequester().getRequester("https://task.teamrabbil.com/api/v1/deleteTask/$id");
-    if(response['status']=='success'){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete Item Successfull")));
-
+    final response = await networkRequester()
+        .getRequester("https://task.teamrabbil.com/api/v1/deleteTask/$id");
+    if (response['status'] == 'success') {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Delete Item Successfull")));
     }
-
-
   }
 
   @override
@@ -88,10 +86,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     title: task.title ?? "Unknown",
                     description: task.description ?? "Unknown",
                     type: "New",
-                    date: task.sId ?? "Unknown",
+                    date: task.createdDate ?? "Unknown",
                     onEditTap: () {
                       // showModalSheetChangeStatus();
-
                     },
                     onDeleteTap: () {
                       deleteItem(task.sId);
@@ -103,11 +100,31 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
-//   showModalSheetChangeStatus() {
-//     showModalBottomSheet(
-//         context: context,
-//         builder: (context) {
-//           return StreamBuilder(stream: (), builder: builder)
-//         });
-//   }
+  showModalSheetChangeStatus() {
+    String type="Progress";
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, changeState) {
+            return Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text(
+                    "Change Status Of Task",
+                    style: titleTextStyle,
+                  ),
+                  RadioListTile(
+                      value: "Progress",
+                      groupValue: type,
+                      onChanged: (value){
+
+
+                  })
+                ],
+              ),
+            );
+          });
+        });
+  }
 }
