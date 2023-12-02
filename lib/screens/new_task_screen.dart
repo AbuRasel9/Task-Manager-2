@@ -3,6 +3,7 @@ import 'package:untitled1/models/completed_task_model.dart';
 import 'package:untitled1/models/new_task_model.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/utils/urls.dart';
+import 'package:untitled1/wdgets/reuseable_elevated_button.dart';
 import 'package:untitled1/wdgets/summery_card.dart';
 import 'package:untitled1/wdgets/task_widget.dart';
 import 'package:untitled1/wdgets/text_style.dart';
@@ -88,7 +89,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     type: "New",
                     date: task.createdDate ?? "Unknown",
                     onEditTap: () {
-                      // showModalSheetChangeStatus();
+                      showModalSheetChangeStatus();
                     },
                     onDeleteTap: () {
                       deleteItem(task.sId);
@@ -99,9 +100,10 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       ],
     );
   }
+  //change status part
 
   showModalSheetChangeStatus() {
-    String type="Progress";
+    String type = "Progress";
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -114,13 +116,34 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     "Change Status Of Task",
                     style: titleTextStyle,
                   ),
+                  SizedBox(height: 16,),
                   RadioListTile(
+                      title: Text("In Progress"),
                       value: "Progress",
                       groupValue: type,
-                      onChanged: (value){
+                      onChanged: (value) {
+                        type = value!;
+                        changeState(() {});
+                      }),
+                  RadioListTile(
+                      title: Text("Completed"),
+                      value: "Completed",
+                      groupValue: type,
+                      onChanged: (value) {
 
-
-                  })
+                        type = value!;
+                        changeState(() {});
+                      }),
+                  RadioListTile(
+                      title: Text("Cancelled"),
+                      value: "Cancelled",
+                      groupValue: type,
+                      onChanged: (value) {
+                        type = value!;
+                        changeState(() {});
+                      }),
+                  SizedBox(height: 10,),
+                  ReuseableElevatedButton(onTap: (){},text: "Submit",)
                 ],
               ),
             );
