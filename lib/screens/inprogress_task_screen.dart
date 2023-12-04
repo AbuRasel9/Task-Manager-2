@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled1/models/inprogress_task_model.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/utils/urls.dart';
+import 'package:untitled1/wdgets/change_status_task.dart';
 import 'package:untitled1/wdgets/task_widget.dart';
 
 class InprogressTaskScreen extends StatefulWidget {
@@ -47,20 +48,37 @@ class _InprogressTaskScreenState extends State<InprogressTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _progressTaskModel?.data?.length ?? 0,
-        itemBuilder: (context, index) {
-          final tasks = _progressTaskModel!.data![index];
-          return TaskWidget(
-            title: tasks.title ?? "unknown",
-            description: tasks.description ?? "unknown",
-            type: 'Inprogress',
-            onEditTap: () {},
-            onDeleteTap: () {
-              deleteItem(tasks.sId);
-            },
-            date: tasks.createdDate ?? "unknown",
-          );
-        });
+    return Column(
+      children: [
+        if(_progressTaskModel == null)
+          Expanded(child: Center(child: CircularProgressIndicator()))
+        else
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: ()async{
+                inprogressgetFormApi();
+
+              },
+              child: ListView.builder(
+                itemCount: _progressTaskModel?.data?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final tasks = _progressTaskModel!.data![index];
+                  return TaskWidget(
+                    title: tasks.title ?? "unknown",
+                    description: tasks.description ?? "unknown",
+                    type: 'Inprogress',
+                    onEditTap: () {
+                      showModalSheetChangeStatus(context, tasks.sId ?? "");
+                    },
+                    onDeleteTap: () {
+                      deleteItem(tasks.sId);
+                    },
+                    date: tasks.createdDate ?? "unknown",
+                  );
+                }),
+            ),
+          ),
+      ],
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:untitled1/models/CancelledTaskModel.dart';
 import 'package:untitled1/network_services/network_requester.dart';
 import 'package:untitled1/screens/new_task_screen.dart';
 import 'package:untitled1/utils/urls.dart';
+import 'package:untitled1/wdgets/change_status_task.dart';
 import 'package:untitled1/wdgets/task_widget.dart';
 import 'package:http/http.dart' as http;
 
@@ -45,20 +46,36 @@ class _CancelledTaskScreenState extends State<CancelledTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: _cancelledTaskModel?.data?.length ?? 0,
-        itemBuilder: (context, index) {
-          final task = _cancelledTaskModel!.data![index];
-          return TaskWidget(
-            title: task.title ?? "Unknown",
-            description: task.description ?? "unknown",
-            type: 'Cancelled',
-            onEditTap: () {},
-            onDeleteTap: () {
-              deleteItem(task.sId);
+    return Column(
+      children: [
+        if(_cancelledTaskModel == null)
+          Expanded(child: Center(child: CircularProgressIndicator()))
+        else
+          Expanded(
+          child: RefreshIndicator(
+            onRefresh: ()async{
+              cancelledTastFormApi();
             },
-            date: task.createdDate ?? "Unknown",
-          );
-        });
+            child: ListView.builder(
+                itemCount: _cancelledTaskModel?.data?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final task = _cancelledTaskModel!.data![index];
+                  return TaskWidget(
+                    title: task.title ?? "Unknown",
+                    description: task.description ?? "unknown",
+                    type: 'Cancelled',
+                    onEditTap: () {
+                      showModalSheetChangeStatus(context, task.sId ?? "");
+                    },
+                    onDeleteTap: () {
+                      deleteItem(task.sId);
+                    },
+                    date: task.createdDate ?? "Unknown",
+                  );
+                }),
+          ),
+        ),
+      ],
+    );
   }
 }
