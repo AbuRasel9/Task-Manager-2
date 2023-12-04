@@ -3,7 +3,8 @@ class Urls{
   static String newTask="$baseUrl/listTaskByStatus/New";
   static String completedTask="$baseUrl/listTaskByStatus/Completed";
   static String cancelledTask="$baseUrl/listTaskByStatus/Cancelled";
-  static String progressTask="https://task.teamrabbil.com/api/v1/listTaskByStatus/Progress";
+  static String progressTask="$baseUrl/listTaskByStatus/Progress";
+  static String updateTask(String taskId,String taskStatus)=>"$baseUrl/updateTaskStatus/$taskId/$taskStatus";
 
 
 
